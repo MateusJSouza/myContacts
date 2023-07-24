@@ -13,6 +13,7 @@ class ContactController {
   // Obter UM registro
   async show(request, response) {
     const { id } = request.params;
+
     const contact = await ContactsRepository.findById(id);
 
     if (!contact) {
