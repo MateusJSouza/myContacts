@@ -31,7 +31,11 @@ export function Home() {
       </InputSearchContainer>
 
       <Header>
-        <strong>3 contatos</strong>
+        <strong>
+          {contacts.length}
+          {' '}
+          {contacts.length === 1 ? 'contato' : 'contatos'}
+        </strong>
 
         <Link to="/new">Novo contato</Link>
       </Header>
@@ -43,20 +47,22 @@ export function Home() {
             <img src={arrow} alt="Ícone de flecha" />
           </button>
         </header>
+      </ListContainer>
 
-        <Card>
+      {contacts.map((contact) => (
+        <Card key={contact.id}>
           <div className="info">
             <div className="contact-name">
-              <strong>Mateus Jesus</strong>
-              <small>instagram</small>
+              <strong>{contact.name}</strong>
+              {contact.category_name && <small>{contact.category_name}</small>}
             </div>
 
-            <span>mateus@devacademy.com.br</span>
-            <span>(88) 98885-6584</span>
+            <span>{contact.email}</span>
+            <span>{contact.phone}</span>
           </div>
 
           <div className="actions">
-            <Link to="/edit/123">
+            <Link to={`/edit/${contact.id}`}>
               <img src={edit} alt="Ícone de edição" />
             </Link>
 
@@ -65,7 +71,7 @@ export function Home() {
             </button>
           </div>
         </Card>
-      </ListContainer>
+      ))}
     </Container>
   );
 }
