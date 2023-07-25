@@ -9,14 +9,6 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
 export function Home() {
-  fetch('http://localhost:3001/contacts')
-    .then((response) => {
-      console.log('response', response);
-    })
-    .catch((error) => {
-      console.log('erro', error);
-    });
-
   return (
     <Container>
       <InputSearchContainer>
@@ -62,3 +54,14 @@ export function Home() {
     </Container>
   );
 }
+
+fetch('http://localhost:3001/contacts')
+  .then((response) => {
+    response.json().then((json) => {
+      console.log('json', json);
+    });
+    console.log('response', response);
+  })
+  .catch((error) => {
+    console.log('erro', error);
+  });
