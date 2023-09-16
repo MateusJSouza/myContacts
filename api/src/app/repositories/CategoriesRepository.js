@@ -1,6 +1,17 @@
 const db = require('../../database');
 
 class CategoriesRepository {
+  async create({ name }) {
+    // Inserindo o nome das colunas para preencher os valores e no fim retornando todas as colunas
+    const [row] = await db.query(`
+      INSERT INTO categories(name)
+      VALUES($1)
+      RETURNING *
+    `, [name])
+
+    return row;
+  }
+
   async findAll() {
     const rows = await db.query('SELECT * FROM categories ORDER BY name');
 
@@ -13,18 +24,7 @@ class CategoriesRepository {
     return row;
   }
 
-  async create({ name }) {
-    // Inserindo o nome das colunas para preencher os valores e no fim retornando todas as colunas
-    const [row] = await db.query(`
-      INSERT INTO categories(name)
-      VALUES($1)
-      RETURNING *
-    `, [name])
-
-    return row;
-  }
-
-  async update(id, {name}) {
+  async update(id, { name }) {
     const [row] = await db.query(`
       UPDATE categories
       SET name = $1
